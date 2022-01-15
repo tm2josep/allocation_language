@@ -1,1 +1,1 @@
-alloc @'claim' (@'claim' / $test) @'liable'
+alloc @'claim' (100 + $test) @'liable'

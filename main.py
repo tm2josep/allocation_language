@@ -14,8 +14,8 @@ def main():
 
     syntax_tree.update('test', 0.5)
     print(syntax_tree.evaluate({"claim": 100, "liable": 0}))
-    
-    syntax_tree.update('test', 10)
+
+    syntax_tree.update('test', -10)
     print(syntax_tree.evaluate({"claim": 100, "liable": 0}))
 
 if (__name__ == '__main__'):

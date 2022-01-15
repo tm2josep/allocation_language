@@ -21,7 +21,7 @@ class Percent(Node):
     def __init__(self, string_value: str):
         self.num_value = float(string_value) / 100
 
-    def evaluate(self, event_data: dict) -> float:
+    def evaluate(self, _: dict) -> float:
         return self.num_value
 
 
@@ -29,7 +29,7 @@ class Number(Node):
     def __init__(self, string_value: str):
         self.num_value = float(string_value)
 
-    def evaluate(self, event_data: dict) -> float:
+    def evaluate(self, _: dict) -> float:
         return self.num_value
 
 
@@ -53,5 +53,5 @@ class LiveVar(Node):
         if self.name == name:
             self.num_value = value
 
-    def evaluate(self, event_data: dict) -> float:
+    def evaluate(self, _: dict) -> float:
         return self.num_value
