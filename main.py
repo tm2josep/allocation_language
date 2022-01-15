@@ -1,3 +1,4 @@
+from re import S
 import lexer as lexer_module
 from parser import parser
 
@@ -17,6 +18,8 @@ def main():
 
     syntax_tree.update('test', -10)
     print(syntax_tree.evaluate({"claim": 100, "liable": 0}))
+
+    print(syntax_tree.get_live_nodes())
 
 if (__name__ == '__main__'):
     main()

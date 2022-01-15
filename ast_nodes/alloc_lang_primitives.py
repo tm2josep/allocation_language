@@ -10,6 +10,11 @@ class Node(object):
     def __ne__(self, other):
         return not (self == other)
 
+    def get_live_nodes(self, found=None):
+        if found is None:
+            found = []
+        return found
+
     def update(self, name: str, value: float):
         pass
 
@@ -47,6 +52,11 @@ class LiveVar(Node):
     def __init__(self, string_name: str):
         self.name = string_name
         self.num_value: float = 0.0
+
+    def get_live_nodes(self, found=None):
+        if (found is None):
+            found = [self.name]
+        return found
 
     # Catch any valid updates that are sent down the tree
     def update(self, name: str, value: float):

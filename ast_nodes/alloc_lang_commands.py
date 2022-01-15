@@ -1,14 +1,20 @@
 from typing import Iterable
+from ast_nodes.alloc_lang_blocks import Statement
 import custom_exceptions
 from .alloc_lang_primitives import Node, Field, LiveVar, Number, Percent
         
 class Alloc(Node):
     def __init__(
-        self, source: Field, value_node: Number | Percent | LiveVar, target: Field
+        self, source: Field, value_node: Node, target: Field
     ):
         self.source = source
         self.value_node = value_node
         self.target = target
+
+    def get_live_nodes(self, found=None):
+        if (found is None):
+            found = []
+        return found + self.value_node.get_live_nodes()
 
     def update(self, name: str, value: float):
         self.value_node.update(name, value)

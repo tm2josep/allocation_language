@@ -1,4 +1,4 @@
-from .alloc_lang_nodes import Node
+from .alloc_lang_commands import Node
 from .alloc_lang_primitives import Field, LiveVar, Number
 
 
@@ -7,6 +7,13 @@ class BinOp(Node):
         self.rhs: Field | LiveVar | Number = node_a
         self.lhs: Field | LiveVar | Number = node_b
     
+    def get_live_nodes(self, found=None):
+        if (found is None):
+            found = []
+        found += self.rhs.get_live_nodes()
+        found += self.lhs.get_live_nodes()
+        return found
+
     def update(self, name: str, value: float):
         self.rhs.update(name, value)
         self.lhs.update(name, value)

@@ -4,6 +4,11 @@ class Statement(Node):
     def __init__(self, expr):
         self.expr = expr
 
+    def get_live_nodes(self, found=None):
+        if (found is None):
+            found = []
+        return found + self.expr.get_live_nodes()
+
     def update(self, name: str, value: float):
         self.expr.update(name, value)
 
@@ -14,6 +19,14 @@ class Statement(Node):
 class Block(Node):
     def __init__(self, statements: Iterable[Statement]):
         self.statements = statements
+
+    def get_live_nodes(self, found=None):
+        if (found is None):
+            found = []
+
+        for statement in self.statements:
+            found += statement.get_live_nodes()
+        return found
 
     def update(self, name: str, value: float):
         for statement in self.statements:
