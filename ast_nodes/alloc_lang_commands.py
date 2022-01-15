@@ -1,8 +1,5 @@
-from typing import Iterable
-from ast_nodes.alloc_lang_blocks import Statement
-import custom_exceptions
-from .alloc_lang_primitives import Node, Field, LiveVar, Number, Percent
-        
+from .alloc_lang_primitives import Node, Field, Percent
+
 class Alloc(Node):
     def __init__(
         self, source: Field, value_node: Node, target: Field

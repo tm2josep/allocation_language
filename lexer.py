@@ -1,4 +1,3 @@
-import re
 from rply import LexerGenerator
 
 lexer_rules = [

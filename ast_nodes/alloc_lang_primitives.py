@@ -1,6 +1,5 @@
 import custom_exceptions
 
-
 class Node(object):
     def __eq__(self, other):
         if not isinstance(other, Node):

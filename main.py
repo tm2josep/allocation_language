@@ -1,4 +1,3 @@
-from re import S
 import lexer as lexer_module
 from parser import parser
 
