@@ -6,11 +6,17 @@ lexer_rules = [
     ("RPAREN", r"\)"),
     ("ALLOC", r"alloc"),
     ("NEWLINE", r"\n"),
-    ("PERCENT", r"\%((\d+\.\d+)|(\d+)|(\.\d+))"),
-    ("INT", r"\d+"),
-    ("FLOAT", r"[+-]?([0-9]*[.])?[0-9]+"),
-    ("FIELD_NAME", r"@\'.+?'"),
-    ("VAR_NAME", r"\$[A-Za-z]+[0-9]+")
+    ("PERCENT", r"\%"),
+    ("NUMBER", r"(\-)?((\d+\.\d+)|(\.\d+)|(\d+))"),
+    ("FIELD_START", r"@'"),
+    ("FIELD_END", r"'"),
+    ("VAR_START", r"\$"),
+    ("NAME", r"[A-Za-z]+[0-9A-Za-z]+"),
+    ("EXP", r"\^"),
+    ("MULT", r"\*"),
+    ("DIV", r"\/"),
+    ("ADD", r"\+"),
+    ("SUB", r"\-"),
 ]
 
 def get_lexer_tokens():
