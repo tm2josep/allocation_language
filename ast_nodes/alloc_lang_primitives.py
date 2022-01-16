@@ -1,8 +1,8 @@
 from multiprocessing import Event
 from typing import Iterable
-from alloc_lang_runtime.EventData import EventData
+from alloc_lang_runtime.event_dataclasses import AssessmentEvent, EventData
 import custom_exceptions
-
+from statistics import mean, median, mode
 class Node(object):
     def __eq__(self, other):
         if not isinstance(other, Node):
@@ -53,6 +53,31 @@ class Field(Node):
             raise custom_exceptions.FieldNotInDataError(event_data, self.name)
         return event_data.data[self.name]
 
+class AggField(Field):
+    def __init__(self, string_name: str, agg_mode: str):
+        self.agg_mode = agg_mode
+        super().__init__(string_name)
+        
+    def evaluate_stream(self, events: Iterable[EventData]) -> float | str:
+        events = [event for event in events if not isinstance(event, AssessmentEvent)]
+        values = [self.evaluate(event) for event in events]
+        match self.agg_mode:
+            case "sum":
+                return sum(values)
+            case "mean":
+                return mean(values)
+            case "median":
+                return median(values)
+            case "mode":
+                return mode(values)
+            case "max":
+                return max(values)
+            case "min":
+                return min(values)
+            case "count":
+                return len(set(values))
+            case _:
+                pass
 
 class LiveVar(Node):
     def __init__(self, string_name: str):

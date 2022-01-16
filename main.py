@@ -1,4 +1,4 @@
-from alloc_lang_runtime.EventData import EventData
+from alloc_lang_runtime.event_dataclasses import EventData
 import lexer as lexer_module
 from parser import parser
 import random
@@ -11,7 +11,6 @@ def make_contract(file_src):
         syntax_tree = parser.parse(token_stream)
         return syntax_tree
 
-
 def event_stream():
     for n in range(5000):
         yield EventData(
@@ -22,13 +21,16 @@ def event_stream():
         )
 
 def main():
-    syntax_tree = make_contract("./test_files/test1.alg")
+    contract = make_contract("./test_files/test1.alg")
 
-    syntax_tree.update("test", 1e5)
+    contract.update("test", 1e5)
 
-    for loss in syntax_tree.evaluate_stream(event_stream()):
-        print(loss)
-    print(syntax_tree.get_live_nodes())
+    events = contract.evaluate_stream(event_stream())
+    for event in events:
+        print(event)
+        pass
+        # print(event)
+    print(contract.get_live_nodes())
 
 
 if __name__ == "__main__":

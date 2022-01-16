@@ -1,2 +1,4 @@
 alloc @'claim' $test @'liable'
-scope (@'liable' == 100000.0) & (@'claim' > 0)
+scope @'claim' > 0
+alloc @'claim' $test @'liable'
+assess @'liable':sum

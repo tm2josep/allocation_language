@@ -21,6 +21,14 @@ def statements_statement_eol(s):
 def statements_statement(s):
     return ast.Statement(s[0])
 
+# COMMAND: "assess"
+@pg.production("statement : ASSESS agg_field")
+def assess_start(s):
+    return ast.AssessNode(s[1])
+
+@pg.production("agg_field : FIELD_START NAME FIELD_END AGG_MODE")
+def aggregate_field(s):
+    return ast.AggField(s[1].getstr(), s[3].getstr()[1:])
 # COMMAND: "alloc"
 @pg.production("statement : ALLOC field expr field")
 def alloc_fields_int(s):

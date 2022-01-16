@@ -1,5 +1,5 @@
 from typing import Iterable
-from alloc_lang_runtime.EventData import EventData
+from alloc_lang_runtime.event_dataclasses import EventData
 from ast_nodes.alloc_lang_primitives import Node
 
 class Statement(Node):
@@ -13,6 +13,9 @@ class Statement(Node):
 
     def update(self, name: str, value: float):
         self.expr.update(name, value)
+
+    def evaluate_stream(self, event_stream: Iterable[EventData]):
+        yield from self.expr.evaluate_stream(event_stream)
 
     def evaluate(self, event_data: EventData) -> dict:
         return self.expr.evaluate(event_data)
@@ -34,6 +37,12 @@ class Block(Node):
         for statement in self.statements:
             statement.update(name, value)
 
+    def evaluate_stream(self, event_stream: Iterable[EventData]):
+        events = [event for event in event_stream]
+        for statement in self.statements:
+            events = [event for event in statement.evaluate_stream(events)]
+        yield from events
+        
     def evaluate(self, event_data: EventData) -> dict:
         for statement in self.statements:
             # print(event_data)

@@ -1,5 +1,5 @@
 from typing import Iterable
-from alloc_lang_runtime.EventData import EventData
+from alloc_lang_runtime.event_dataclasses import EventData
 from ast_nodes.alloc_lang_primitives import Node, Field, Percent
 
 class Alloc(Node):
@@ -45,7 +45,7 @@ class Alloc(Node):
         quantity = value * source_val
 
         return self.modify_data(event_data, quantity)
-
+    
     def evaluate(self, event_data: EventData) -> dict:
         if (event_data.scope_flag == False):
             return event_data

@@ -5,12 +5,13 @@ lexer_rules = [
     ("RPAREN", r"\)"),
     ("ALLOC", r"alloc"),
     ("SCOPE", r"scope"),
+    ("ASSESS", r"assess"),
     ("NEWLINE", r"\n"),
     ("PERCENT", r"\%"),
     ("NUMBER", r"(\-)?((\d+\.\d+)|(\.\d+)|(\d+))"),
     ("FIELD_START", r"@'"),
-    # Lookbehind makes sure we don't match an escaped '
-    ("FIELD_END", r"(?<!\\)(?:(\\\\)*)[']"),
+    ("FIELD_END", r"(?<!\\)(?:(\\\\)*)[']"), # Lookbehind makes sure we don't match an escaped '
+    ("AGG_MODE", r"\:((sum)|(mean)|(median)|(mode)|(max)|(min)|(count))"),
     ("VAR_START", r"\$"),
     ("NAME", r"[A-Za-z]+[0-9A-Za-z]+"),
     ("EXP", r"\^"),
