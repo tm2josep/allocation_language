@@ -4,6 +4,7 @@ import ast_nodes.all_nodes as ast
 
 pg = ParserGenerator(lexer.get_lexer_tokens(), cache_id="alloc_lang")
 
+# MAIN STATEMENTS
 @pg.production("main : statements")
 def main(s):
     return s[0]
@@ -20,10 +21,33 @@ def statements_statement_eol(s):
 def statements_statement(s):
     return ast.Statement(s[0])
 
+# COMMAND: "alloc"
 @pg.production("statement : ALLOC field expr field")
 def alloc_fields_int(s):
     return ast.Alloc(s[1], s[2], s[3])
 
+# COMMAND: "scope"
+@pg.production("statement : SCOPE condition")
+def scope_command(s):
+    return ast.Scope(s[1])
+
+@pg.production("condition : condition AND condition")
+def conditional_and(s):
+    return ast.AndNode(s[0], s[2])
+
+@pg.production("condition : condition OR condition")
+def conditional_or(s):
+    return ast.OrNode(s[0], s[2])
+
+@pg.production("condition : LPAREN condition RPAREN")
+def conditional_wrapped(s):
+    return s[1]
+
+@pg.production("condition : expr COMPARATOR expr")
+def condition_compare(s):
+    return ast.Condition(s[0], s[1].getstr(), s[2])
+
+# EXPRESSION MANAGEMENT
 @pg.production("expr : LPAREN expr RPAREN")
 def parenthesized_expression(s):
     return s[1]
@@ -56,6 +80,7 @@ def expression_value(s):
 def field_as_value(s):
     return s[0]
 
+# NAME MANAGMENT
 @pg.production("field : FIELD_START NAME FIELD_END")
 def field_name(s):
     return ast.Field(s[1].getstr())
@@ -64,6 +89,8 @@ def field_name(s):
 def live_var_name(s):
     return ast.LiveVar(s[1].getstr())
 
+
+# CONSTANTS AND VALUES
 @pg.production("value : NUMBER")
 def int_value(s):
     return ast.Number(s[0].getstr())

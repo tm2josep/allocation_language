@@ -24,7 +24,7 @@ def event_stream():
 def main():
     syntax_tree = make_contract("./test_files/test1.alg")
 
-    syntax_tree.update("test", 2.5e5)
+    syntax_tree.update("test", 1e5)
 
     for loss in syntax_tree.evaluate_stream(event_stream()):
         print(loss)

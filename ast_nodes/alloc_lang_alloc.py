@@ -19,8 +19,8 @@ class Alloc(Node):
         self.value_node.update(name, value)
 
     def modify_data(self, event_data: EventData, quantity: float):
-        source_val = float(self.source.evaluate(event_data))
-        target_val = float(self.target.evaluate(event_data))
+        source_val = self.source.evaluate(event_data)
+        target_val = self.target.evaluate(event_data)
 
         source_val -= quantity
         target_val += quantity
@@ -31,7 +31,7 @@ class Alloc(Node):
         return event_data
 
     def evaluate_as_number(self, event_data: EventData):
-        source_val = float(self.source.evaluate(event_data))
+        source_val = self.source.evaluate(event_data)
         value = self.value_node.evaluate(event_data)
 
         quantity = min(source_val, value)
@@ -39,7 +39,7 @@ class Alloc(Node):
         return self.modify_data(event_data, quantity)
 
     def evaluate_as_share(self, event_data: EventData):
-        source_val = float(self.source.evaluate(event_data))
+        source_val = self.source.evaluate(event_data)
         value = self.value_node.evaluate(event_data)
 
         quantity = value * source_val

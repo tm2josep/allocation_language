@@ -1,5 +1,5 @@
 from alloc_lang_runtime.EventData import EventData
-from ast_nodes.alloc_lang_commands import Node
+from ast_nodes.alloc_lang_alloc import Node
 from ast_nodes.alloc_lang_primitives import Field, LiveVar, Number
 
 
