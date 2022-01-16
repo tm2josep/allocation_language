@@ -29,6 +29,7 @@ def assess_start(s):
 @pg.production("agg_field : FIELD_START NAME FIELD_END AGG_MODE")
 def aggregate_field(s):
     return ast.AggField(s[1].getstr(), s[3].getstr()[1:])
+
 # COMMAND: "alloc"
 @pg.production("statement : ALLOC field expr field")
 def alloc_fields_int(s):
@@ -54,6 +55,11 @@ def conditional_wrapped(s):
 @pg.production("condition : expr COMPARATOR expr")
 def condition_compare(s):
     return ast.Condition(s[0], s[1].getstr(), s[2])
+
+# COMMAND: "discard"
+@pg.production("statement : DISCARD condition")
+def discard_command(s):
+    return ast.DiscardNode(s[1])
 
 # EXPRESSION MANAGEMENT
 @pg.production("expr : LPAREN expr RPAREN")
@@ -100,12 +106,15 @@ def live_var_name(s):
 
 # CONSTANTS AND VALUES
 @pg.production("value : NUMBER")
-def int_value(s):
+def num_value(s):
     return ast.Number(s[0].getstr())
 
 @pg.production("value : NUMBER PERCENT")
 def percent_value(s):
     return ast.Percent(s[0].getstr())
 
+@pg.production("value : STRING")
+def string_value(s):
+    return ast.String(s[0].getstr()[1:-1])
 
 parser = pg.build()

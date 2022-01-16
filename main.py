@@ -12,9 +12,10 @@ def make_contract(file_src):
         return syntax_tree
 
 def event_stream():
-    for n in range(5000):
+    for _ in range(5000):
         yield EventData(
             data = {
+                "type": random.choice(['A', 'B', 'C']),
                 "claim": random.randint(1, 5e5),
                 "liable": 0
             }
@@ -28,6 +29,7 @@ def main():
     total = 0
     for event in events:
         if (isinstance(event, AssessmentEvent)):
+            # print(event)
             total += event.final_value
 
     print(f"{total:,.2f}")

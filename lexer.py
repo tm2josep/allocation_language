@@ -7,11 +7,13 @@ lexer_rules = [
     ("RPAREN", r"\)"),
     ("ALLOC", r"alloc"),
     ("SCOPE", r"scope"),
+    ("DISCARD", r"discard"),
     ("ASSESS", r"assess"),
     ("NEWLINE", r"\n"),
     ("PERCENT", r"\%"),
     ("NUMBER", r"(\-)?((\d+\.\d+)|(\.\d+)|(\d+))"),
     ("FIELD_START", r"@'"),
+    ("STRING", r"\"(.+?)(?<!\\)(?:(\\\\)*)[\"]"),
     ("FIELD_END", r"(?<!\\)(?:(\\\\)*)[']"), # Lookbehind makes sure we don't match an escaped '
     ("AGG_MODE", r"\:((sum)|(mean)|(median)|(mode)|(max)|(min)|(count))"),
     ("VAR_START", r"\$"),

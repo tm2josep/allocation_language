@@ -42,6 +42,13 @@ class Number(Node):
     def evaluate(self, _: EventData) -> float:
         return self.num_value
 
+class String(Node):
+    def __init__(self, string_value: str):
+        self.string_value = string_value
+
+    def evaluate(self, _: EventData) -> str:
+        return self.string_value
+
 
 class Field(Node):
     def __init__(self, string_name: str):

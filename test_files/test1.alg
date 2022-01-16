@@ -1,2 +1,3 @@
 alloc @'claim' $test @'liable'
-assess @'liable':median
+discard @'type' == "C"
+assess @'liable':sum
