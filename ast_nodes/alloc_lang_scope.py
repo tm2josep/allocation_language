@@ -3,7 +3,7 @@ from ast_nodes.alloc_lang_primitives import Node
 
 # Only used for typing purposes really
 class BoolNode(Node):
-    def evaluate(self, event: EventData) -> bool:
+    def evaluate(self, _: EventData) -> bool:
         return True
 
 class Condition(BoolNode):
@@ -14,8 +14,8 @@ class Condition(BoolNode):
         self.comparator = comparator
 
     def evaluate(self, event: EventData) -> bool:
-        rh_val = self.rhs.evaluate(event)
-        lh_val = self.lhs.evaluate(event)
+        rh_val: float | str = self.rhs.evaluate(event)
+        lh_val: float | str = self.lhs.evaluate(event)
 
         return bool(eval(f"{rh_val!r} {self.comparator} {lh_val!r}"))
 

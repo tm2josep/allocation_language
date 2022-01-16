@@ -1,14 +1,14 @@
 from alloc_lang_runtime.event_dataclasses import EventData
 from ast_nodes.alloc_lang_alloc import Node
 from ast_nodes.alloc_lang_primitives import Field, LiveVar, Number
-
+from typing import List
 
 class BinOp(Node):
     def __init__(self, node_a: Node, node_b: Node):
         self.rhs: Field | LiveVar | Number = node_a
         self.lhs: Field | LiveVar | Number = node_b
     
-    def get_live_nodes(self, found=None):
+    def get_live_nodes(self, found: List[str] | None = None) -> List[str]:
         if (found is None):
             found = []
         found += self.rhs.get_live_nodes()

@@ -1,4 +1,6 @@
 from rply import LexerGenerator
+from rply.lexer import Lexer
+from typing import List
 
 lexer_rules = [
     ("LPAREN", r"\("),
@@ -24,10 +26,10 @@ lexer_rules = [
     ("COMPARATOR", r"(==)|(>=)|(<=)|(>)|(<)")
 ]
 
-def get_lexer_tokens():
+def get_lexer_tokens() -> List[str]:
     return [name for name, _ in lexer_rules]
 
-def make_new_lexer():
+def make_new_lexer() -> Lexer:
     lg = LexerGenerator()
 
     lg.ignore(r"[^\S\r\n]")

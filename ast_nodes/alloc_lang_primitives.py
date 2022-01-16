@@ -1,5 +1,4 @@
-from multiprocessing import Event
-from typing import Iterable
+from typing import Iterable, List
 from alloc_lang_runtime.event_dataclasses import AssessmentEvent, EventData
 import custom_exceptions
 from statistics import mean, median, mode
@@ -12,7 +11,7 @@ class Node(object):
     def __ne__(self, other):
         return not (self == other)
 
-    def get_live_nodes(self, found=None):
+    def get_live_nodes(self, found: List[str] | None = None) -> List[str]:
         if found is None:
             found = []
         return found
@@ -20,7 +19,7 @@ class Node(object):
     def update(self, name: str, value: float):
         pass
 
-    def evaluate_stream(self, event_data_stream: Iterable[EventData]):
+    def evaluate_stream(self, event_data_stream: Iterable[EventData]) -> Iterable[EventData]:
         for event in event_data_stream:
             yield self.evaluate(event) 
 
