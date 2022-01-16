@@ -1,4 +1,6 @@
-from .alloc_lang_primitives import Node, Field, Percent
+from typing import Iterable
+from alloc_lang_runtime.EventData import EventData
+from ast_nodes.alloc_lang_primitives import Node, Field, Percent
 
 class Alloc(Node):
     def __init__(
@@ -16,19 +18,19 @@ class Alloc(Node):
     def update(self, name: str, value: float):
         self.value_node.update(name, value)
 
-    def modify_data(self, event_data: dict, quantity: float):
+    def modify_data(self, event_data: EventData, quantity: float):
         source_val = float(self.source.evaluate(event_data))
         target_val = float(self.target.evaluate(event_data))
 
         source_val -= quantity
         target_val += quantity
 
-        event_data[self.source.name] = source_val
-        event_data[self.target.name] = target_val
+        event_data.data[self.source.name] = source_val
+        event_data.data[self.target.name] = target_val
 
         return event_data
 
-    def evaluate_as_number(self, event_data: dict):
+    def evaluate_as_number(self, event_data: EventData):
         source_val = float(self.source.evaluate(event_data))
         value = self.value_node.evaluate(event_data)
 
@@ -36,7 +38,7 @@ class Alloc(Node):
 
         return self.modify_data(event_data, quantity)
 
-    def evaluate_as_share(self, event_data: dict):
+    def evaluate_as_share(self, event_data: EventData):
         source_val = float(self.source.evaluate(event_data))
         value = self.value_node.evaluate(event_data)
 
@@ -44,8 +46,10 @@ class Alloc(Node):
 
         return self.modify_data(event_data, quantity)
 
-    def evaluate(self, event_data: dict) -> dict:
-        
+    def evaluate(self, event_data: EventData) -> dict:
+        if (event_data.scope_flag == False):
+            return event_data
+            
         if isinstance(self.value_node, Percent):
             return self.evaluate_as_share(event_data)
 

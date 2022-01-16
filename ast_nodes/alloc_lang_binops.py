@@ -1,5 +1,6 @@
-from .alloc_lang_commands import Node
-from .alloc_lang_primitives import Field, LiveVar, Number
+from alloc_lang_runtime.EventData import EventData
+from ast_nodes.alloc_lang_commands import Node
+from ast_nodes.alloc_lang_primitives import Field, LiveVar, Number
 
 
 class BinOp(Node):
@@ -18,7 +19,7 @@ class BinOp(Node):
         self.rhs.update(name, value)
         self.lhs.update(name, value)
 
-    def evaluate(self, event_data: dict) -> float:
+    def evaluate(self, event_data: EventData) -> float:
         a = self.rhs.evaluate(event_data)
         b = self.lhs.evaluate(event_data)
         return self.compute(a, b)
