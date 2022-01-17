@@ -1,5 +1,4 @@
 alloc @'claim' 100000 @'liable';
-
 scope @'type' == "A";
 assess @'liable':sum;
 

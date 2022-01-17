@@ -17,10 +17,6 @@ def statments(s):
 def statements_statement_eol(s):
     return ast.Statement(s[0])
 
-@pg.production("statements : statement")
-def statements_statement(s):
-    return ast.Statement(s[0])
-
 # COMMAND: "assess"
 @pg.production("statement : ASSESS agg_field")
 def assess_start(s):

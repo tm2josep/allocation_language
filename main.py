@@ -7,7 +7,7 @@ def make_contract(file_src):
     with open("./test_files/test1.txt", "r") as src_file:
         lexer = lexer_module.make_new_lexer()
         token_stream = lexer.lex(src_file.read())
-
+        
         syntax_tree = parser.parse(token_stream)
         return syntax_tree
 

@@ -34,9 +34,11 @@ def get_lexer_tokens() -> List[str]:
 def make_new_lexer() -> Lexer:
     lg = LexerGenerator()
 
-    lg.ignore(r"\s")
+    lg.ignore(r"\s+")
+    lg.ignore(r"\#.*")
     for name, regex in lexer_rules:
         lg.add(name, regex)
 
     lexer = lg.build()
+
     return lexer
