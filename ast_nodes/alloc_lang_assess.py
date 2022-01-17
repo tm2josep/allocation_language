@@ -16,6 +16,7 @@ class AssessNode(Node):
             else:
                 print(event)
                 temp_events.append(event)
+        
         events = temp_events
 
         yield AssessmentEvent(
