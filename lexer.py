@@ -9,6 +9,8 @@ lexer_rules = [
     ("SCOPE", r"scope"),
     ("DISCARD", r"discard"),
     ("ASSESS", r"assess"),
+    ("AGGREGATE", r"aggregate"),
+    ("KEY", r"key"),
     ("EOL", r";"),
     ("PERCENT", r"\%"),
     ("NUMBER", r"(\-)?((\d+\.\d+)|(\.\d+)|(\d+))"),

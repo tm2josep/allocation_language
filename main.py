@@ -1,4 +1,5 @@
 from alloc_lang_runtime.event_dataclasses import AssessmentEvent, EventData
+from typing import Iterable
 import lexer as lexer_module
 from parser import parser
 import random
@@ -24,16 +25,13 @@ def event_stream():
 def main():
     contract = make_contract("./test_files/test1.alg")
     contract.update("test", 1e5)
-    events = contract.evaluate_stream(event_stream())
+    events: Iterable[EventData | AssessmentEvent] = contract.evaluate_stream(event_stream())
 
-    total = 0
     for event in events:
-        if (isinstance(event, AssessmentEvent)):
+        if (event.aggregated):
             print(event)
-            total += event.final_value
 
-    print(f"{total:,.2f}")
-
+        
 
 if __name__ == "__main__":
     main()

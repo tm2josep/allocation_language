@@ -22,14 +22,27 @@ def statements_statement_eol(s):
 def assess_start(s):
     return ast.AssessNode(s[1])
 
-@pg.production("agg_field : FIELD_START NAME FIELD_END AGG_MODE")
-def aggregate_field(s):
-    return ast.AggField(s[1].getstr(), s[3].getstr()[1:])
-
 # COMMAND: "alloc"
 @pg.production("statement : ALLOC field expr field")
 def alloc_fields_int(s):
     return ast.Alloc(s[1], s[2], s[3])
+
+# COMMAND: "aggregate"
+@pg.production("statement : AGGREGATE agg_fields")
+def aggregation_keyless(s):
+    return ast.KeylessAggregateNode(s[1])
+
+@pg.production("statement : AGGREGATE KEY field agg_fields")
+def aggregation_keyed(s):
+    return ast.KeyedAggregateNode(s[2], s[3])
+
+@pg.production("agg_fields : agg_field agg_fields")
+def aggregation_fields(s):
+    return [s[0]] + s[1]
+
+@pg.production("agg_fields : agg_field")
+def aggregation_fields_end(s):
+    return [s[0]]
 
 # COMMAND: "scope"
 @pg.production("statement : SCOPE condition")
@@ -94,6 +107,10 @@ def field_as_value(s):
 @pg.production("field : FIELD_START NAME FIELD_END")
 def field_name(s):
     return ast.Field(s[1].getstr())
+
+@pg.production("agg_field : FIELD_START NAME FIELD_END AGG_MODE")
+def aggregate_field(s):
+    return ast.AggField(s[1].getstr(), s[3].getstr()[1:])
 
 @pg.production("value : VAR_START NAME")
 def live_var_name(s):

@@ -14,7 +14,6 @@ class AssessNode(Node):
             if (not isinstance(event, EventData)):
                 yield event
             else:
-                print(event)
                 temp_events.append(event)
         
         events = temp_events

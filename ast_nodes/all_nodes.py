@@ -5,3 +5,4 @@ from ast_nodes.alloc_lang_alloc import *
 from ast_nodes.alloc_lang_scope import *
 from ast_nodes.alloc_lang_assess import *
 from ast_nodes.alloc_lang_discard import *
+from ast_nodes.alloc_lang_aggregate import *
