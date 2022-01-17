@@ -29,7 +29,7 @@ def main():
     total = 0
     for event in events:
         if (isinstance(event, AssessmentEvent)):
-            # print(event)
+            print(event)
             total += event.final_value
 
     print(f"{total:,.2f}")

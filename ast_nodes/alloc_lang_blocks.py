@@ -23,6 +23,7 @@ class Statement(Node):
 
 class Block(Node):
     def __init__(self, statements: Iterable[Statement]):
+        print(statements)
         self.statements = statements
 
     def get_live_nodes(self, found: List[str] | None = None) -> List[str]:

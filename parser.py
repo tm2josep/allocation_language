@@ -9,11 +9,11 @@ pg = ParserGenerator(lexer.get_lexer_tokens(), cache_id="alloc_lang")
 def main(s):
     return s[0]
 
-@pg.production("statements : statement NEWLINE statements")
+@pg.production("statements : statement EOL statements")
 def statments(s):
     return ast.Block([s[0]] + [s[2]])
 
-@pg.production("statements : statement NEWLINE")
+@pg.production("statements : statement EOL")
 def statements_statement_eol(s):
     return ast.Statement(s[0])
 

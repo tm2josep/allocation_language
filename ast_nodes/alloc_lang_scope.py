@@ -44,4 +44,6 @@ class Scope(Node):
         self.condition = condition
 
     def evaluate(self, event: EventData) -> EventData:
+        if (not isinstance(event, EventData)):
+            return event
         return EventData(data=event.data, scope_flag=self.condition.evaluate(event))

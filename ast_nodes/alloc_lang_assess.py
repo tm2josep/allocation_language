@@ -8,6 +8,16 @@ class AssessNode(Node):
         self.agg_field_node = agg_field_node
 
     def evaluate_stream(self, events: Iterable[EventData]) -> Iterable[EventData]:
+        events = list(events)
+        temp_events = []
+        for event in events:
+            if (not isinstance(event, EventData)):
+                yield event
+            else:
+                print(event)
+                temp_events.append(event)
+        events = temp_events
+
         yield AssessmentEvent(
             self.agg_field_node.evaluate_stream(
                 event for event in events if event.scope_flag

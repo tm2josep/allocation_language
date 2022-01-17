@@ -9,7 +9,7 @@ lexer_rules = [
     ("SCOPE", r"scope"),
     ("DISCARD", r"discard"),
     ("ASSESS", r"assess"),
-    ("NEWLINE", r"\n"),
+    ("EOL", r"\n"),
     ("PERCENT", r"\%"),
     ("NUMBER", r"(\-)?((\d+\.\d+)|(\.\d+)|(\d+))"),
     ("FIELD_START", r"@'"),
@@ -34,7 +34,7 @@ def get_lexer_tokens() -> List[str]:
 def make_new_lexer() -> Lexer:
     lg = LexerGenerator()
 
-    lg.ignore(r"[^\S\r\n]")
+    lg.ignore(r"(\s*$)|[^\S\r\n]")
     for name, regex in lexer_rules:
         lg.add(name, regex)
 
