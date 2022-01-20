@@ -28,10 +28,7 @@ def main():
     events: Iterable[EventData | AssessmentEvent] = contract.evaluate_stream(event_stream())
 
     for event in events:
-        if (event.aggregated):
-            print(event)
-
-        
+        print(event)
 
 if __name__ == "__main__":
     main()

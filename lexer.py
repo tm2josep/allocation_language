@@ -10,6 +10,7 @@ lexer_rules = [
     ("DISCARD", r"discard"),
     ("ASSESS", r"assess"),
     ("AGGREGATE", r"aggregate"),
+    ("SET_VALUE", r"set\_value"),
     ("KEY", r"key"),
     ("EOL", r";"),
     ("PERCENT", r"\%"),

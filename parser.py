@@ -4,6 +4,13 @@ import ast_nodes.all_nodes as ast
 
 pg = ParserGenerator(lexer.get_lexer_tokens(), cache_id="alloc_lang")
 
+# ERROR HANDLING
+@pg.error
+def error_handler(token):
+    if (token.getstr() == "$end"):
+        raise ValueError(f"Reached end of line early. Did you forget the ';'?")
+    raise ValueError(f"Ran into a {token.getstr()} where it wasn't expected")
+
 # MAIN STATEMENTS
 @pg.production("main : statements")
 def main(s):
@@ -16,6 +23,11 @@ def statments(s):
 @pg.production("statements : statement EOL")
 def statements_statement_eol(s):
     return ast.Statement(s[0])
+
+# COMMAND: "set_value"
+@pg.production("statement : SET_VALUE field value")
+def set_value_start(s):
+    return ast.SetValue(s[1], s[2])
 
 # COMMAND: "assess"
 @pg.production("statement : ASSESS agg_field")
