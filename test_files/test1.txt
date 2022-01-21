@@ -1,3 +1,0 @@
-alloc @'claim' 100000 @'liable';
-aggregate key @'type' @'claim':sum @'liable':sum;
-set_value @'type' "C";

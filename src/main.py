@@ -5,7 +5,7 @@ from parser import parser
 import random
 
 def make_contract(file_src):
-    with open("./test_files/test1.txt", "r") as src_file:
+    with open("./src/test_files/test1.txt", "r") as src_file:
         lexer = lexer_module.make_new_lexer()
         token_stream = lexer.lex(src_file.read())
         
@@ -18,7 +18,8 @@ def event_stream():
             data = {
                 "type": random.choice(['A', 'B', 'C']),
                 "claim": random.randint(1, 5e5),
-                "liable": 0
+                "liable": 0,
+                "revenue": random.randint(1, 5e5)
             }
         )
 
