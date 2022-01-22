@@ -1,6 +1,15 @@
 from rply import ParserGenerator
 import allocation_language.lexer as lexer
-import allocation_language.ast_nodes as ast
+from allocation_language.ast_nodes.alloc_lang_aggregate import *
+from allocation_language.ast_nodes.alloc_lang_alloc import *
+from allocation_language.ast_nodes.alloc_lang_assess import *
+from allocation_language.ast_nodes.alloc_lang_binops import *
+from allocation_language.ast_nodes.alloc_lang_blocks import *
+from allocation_language.ast_nodes.alloc_lang_discard import *
+from allocation_language.ast_nodes.alloc_lang_primitives import *
+from allocation_language.ast_nodes.alloc_lang_scope import *
+from allocation_language.ast_nodes.alloc_lang_set import *
+
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -20,35 +29,35 @@ def main(s):
 
 @pg.production("statements : statement EOL statements")
 def statments(s):
-    return ast.Block([s[0]] + [s[2]])
+    return Block([s[0]] + [s[2]])
 
 @pg.production("statements : statement EOL")
 def statements_statement_eol(s):
-    return ast.Statement(s[0])
+    return Statement(s[0])
 
 # COMMAND: "set_value"
 @pg.production("statement : SET_VALUE field value")
 def set_value_start(s):
-    return ast.SetValue(s[1], s[2])
+    return SetValue(s[1], s[2])
 
 # COMMAND: "assess"
 @pg.production("statement : ASSESS agg_field")
 def assess_start(s):
-    return ast.AssessNode(s[1])
+    return AssessNode(s[1])
 
 # COMMAND: "alloc"
 @pg.production("statement : ALLOC field expr field")
 def alloc_fields_int(s):
-    return ast.Alloc(s[1], s[2], s[3])
+    return Alloc(s[1], s[2], s[3])
 
 # COMMAND: "aggregate"
 @pg.production("statement : AGGREGATE agg_fields")
 def aggregation_keyless(s):
-    return ast.KeylessAggregateNode(s[1])
+    return KeylessAggregateNode(s[1])
 
 @pg.production("statement : AGGREGATE KEY field agg_fields")
 def aggregation_keyed(s):
-    return ast.KeyedAggregateNode(s[2], s[3])
+    return KeyedAggregateNode(s[2], s[3])
 
 @pg.production("agg_fields : agg_field agg_fields")
 def aggregation_fields(s):
@@ -61,15 +70,15 @@ def aggregation_fields_end(s):
 # COMMAND: "scope"
 @pg.production("statement : SCOPE condition")
 def scope_command(s):
-    return ast.Scope(s[1])
+    return Scope(s[1])
 
 @pg.production("condition : condition AND condition")
 def conditional_and(s):
-    return ast.AndNode(s[0], s[2])
+    return AndNode(s[0], s[2])
 
 @pg.production("condition : condition OR condition")
 def conditional_or(s):
-    return ast.OrNode(s[0], s[2])
+    return OrNode(s[0], s[2])
 
 @pg.production("condition : LPAREN condition RPAREN")
 def conditional_wrapped(s):
@@ -77,12 +86,12 @@ def conditional_wrapped(s):
 
 @pg.production("condition : expr COMPARATOR expr")
 def condition_compare(s):
-    return ast.Condition(s[0], s[1].getstr(), s[2])
+    return Condition(s[0], s[1].getstr(), s[2])
 
 # COMMAND: "discard"
 @pg.production("statement : DISCARD condition")
 def discard_command(s):
-    return ast.DiscardNode(s[1])
+    return DiscardNode(s[1])
 
 # EXPRESSION MANAGEMENT
 @pg.production("expr : LPAREN expr RPAREN")
@@ -91,23 +100,23 @@ def parenthesized_expression(s):
 
 @pg.production("expr : expr EXP expr")
 def expression_product(s):
-    return ast.Exponentiate(s[0], s[2])
+    return Exponentiate(s[0], s[2])
 
 @pg.production("expr : expr MULT expr")
 def expression_product(s):
-    return ast.Multiply(s[0], s[2])
+    return Multiply(s[0], s[2])
 
 @pg.production("expr : expr DIV expr")
 def expression_product(s):
-    return ast.Divide(s[0], s[2])
+    return Divide(s[0], s[2])
 
 @pg.production("expr : expr ADD expr")
 def expression_product(s):
-    return ast.Add(s[0], s[2])
+    return Add(s[0], s[2])
 
 @pg.production("expr : expr SUB expr")
 def expression_product(s):
-    return ast.Subtract(s[0], s[2])
+    return Subtract(s[0], s[2])
 
 @pg.production("expr : value")
 def expression_value(s):
@@ -120,28 +129,28 @@ def field_as_value(s):
 # NAME MANAGMENT
 @pg.production("field : FIELD_START NAME FIELD_END")
 def field_name(s):
-    return ast.Field(s[1].getstr())
+    return Field(s[1].getstr())
 
 @pg.production("agg_field : FIELD_START NAME FIELD_END AGG_MODE")
 def aggregate_field(s):
-    return ast.AggField(s[1].getstr(), s[3].getstr()[1:])
+    return AggField(s[1].getstr(), s[3].getstr()[1:])
 
 @pg.production("value : VAR_START NAME")
 def live_var_name(s):
-    return ast.LiveVar(s[1].getstr())
+    return LiveVar(s[1].getstr())
 
 
 # CONSTANTS AND VALUES
 @pg.production("value : NUMBER")
 def num_value(s):
-    return ast.Number(s[0].getstr())
+    return Number(s[0].getstr())
 
 @pg.production("value : NUMBER PERCENT")
 def percent_value(s):
-    return ast.Percent(s[0].getstr())
+    return Percent(s[0].getstr())
 
 @pg.production("value : STRING")
 def string_value(s):
-    return ast.String(s[0].getstr()[1:-1])
+    return String(s[0].getstr()[1:-1])
 
 parser = pg.build()

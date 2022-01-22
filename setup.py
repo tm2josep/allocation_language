@@ -2,8 +2,8 @@ import setuptools
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setuptools.setup(
-    name="allocation_language-TMAMMENJOSEPH",
-    version="0.0.4",
+    name="allocation_language",
+    version="0.0.1",
     description="Language intented to construct the financial behaviour of (re)insurance contracts.",
     long_description=long_description,
     long_description_content_type="text/markdown",
