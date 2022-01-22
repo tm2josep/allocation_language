@@ -1,4 +1,4 @@
-from alloc_lang_data_containers.event_dataclasses import EventData
+from allocation_language.alloc_lang_data_containers.event_dataclasses import EventData
 from copy import copy
 from typing import Iterable
 

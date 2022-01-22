@@ -1,5 +1,5 @@
-from alloc_lang_data_containers.event_dataclasses import EventData
-from ast_nodes.alloc_lang_primitives import Node
+from allocation_language.alloc_lang_data_containers.event_dataclasses import EventData
+from allocation_language.ast_nodes.alloc_lang_primitives import Node
 
 # Only used for typing purposes really
 class BoolNode(Node):

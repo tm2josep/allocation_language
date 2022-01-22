@@ -1,5 +1,5 @@
 .vscode/
 __pycache__/
-allocation_language.egg-info
+*.egg-info/
 build/
 dist/

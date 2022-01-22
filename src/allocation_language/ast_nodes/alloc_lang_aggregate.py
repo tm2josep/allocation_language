@@ -1,6 +1,6 @@
 from typing import Iterable
-from alloc_lang_data_containers.event_dataclasses import AssessmentEvent, EventData
-from ast_nodes.alloc_lang_primitives import AggField, Field, Node
+from allocation_language.alloc_lang_data_containers.event_dataclasses import AssessmentEvent, EventData
+from allocation_language.ast_nodes.alloc_lang_primitives import AggField, Field, Node
 
 class KeylessAggregateNode(Node):
     def __init__(self, agg_field_nodes: Iterable[AggField]):

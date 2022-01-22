@@ -1,8 +1,8 @@
 from os import PathLike
-from alloc_lang_data_containers.event_dataclasses import AssessmentEvent, EventData
+from allocation_language.alloc_lang_data_containers.event_dataclasses import AssessmentEvent, EventData
 from typing import Iterable
-import lexer as lexer_module
-from parser import parser
+import allocation_language.lexer as lexer_module
+from allocation_language.parser import parser
 import random
 
 
@@ -14,7 +14,7 @@ def _make_contract(text_content: str):
     return contract
     
 def make_contract_from_file(file_src: PathLike):
-    with open("./src/test_files/test1.txt", "r") as src_file:
+    with open(file_src, "r") as src_file:
         return _make_contract(src_file.read())
 
 def make_contract_from_text(text_content: str):
@@ -32,7 +32,7 @@ def __event_stream():
         )
 
 def main():
-    contract = make_contract_from_file("./test_files/test1.alg")
+    contract = make_contract_from_file("./src/allocation_language/test_files/test1.txt")
     contract.update("test", 1e5)
     events: Iterable[EventData | AssessmentEvent] = contract.evaluate_stream(__event_stream())
 

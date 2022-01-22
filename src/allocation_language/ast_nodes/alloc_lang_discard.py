@@ -1,7 +1,7 @@
 from typing import Iterable
-from alloc_lang_data_containers.event_dataclasses import EventData
-from ast_nodes.alloc_lang_primitives import Node
-from ast_nodes.alloc_lang_scope import Condition
+from allocation_language.alloc_lang_data_containers.event_dataclasses import EventData
+from allocation_language.ast_nodes.alloc_lang_primitives import Node
+from allocation_language.ast_nodes.alloc_lang_scope import Condition
 
 
 class DiscardNode(Node):

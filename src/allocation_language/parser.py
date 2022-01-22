@@ -1,6 +1,6 @@
 from rply import ParserGenerator
-import lexer
-import ast_nodes.all_nodes as ast
+import allocation_language.lexer as lexer
+import allocation_language.ast_nodes as ast
 import warnings
 warnings.filterwarnings('ignore')
 

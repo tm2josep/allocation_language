@@ -1,5 +1,5 @@
-from alloc_lang_data_containers.event_dataclasses import EventData
-from ast_nodes.alloc_lang_primitives import Field, LiveVar, Node, Number, String
+from allocation_language.alloc_lang_data_containers.event_dataclasses import EventData
+from allocation_language.ast_nodes.alloc_lang_primitives import Field, LiveVar, Node, Number, String
 from typing import List
 
 

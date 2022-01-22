@@ -1,6 +1,6 @@
-from alloc_lang_data_containers.event_dataclasses import EventData
-from ast_nodes.alloc_lang_alloc import Node
-from ast_nodes.alloc_lang_primitives import Field, LiveVar, Number
+from allocation_language.alloc_lang_data_containers.event_dataclasses import EventData
+from allocation_language.ast_nodes.alloc_lang_alloc import Node
+from allocation_language.ast_nodes.alloc_lang_primitives import Field, LiveVar, Number
 from typing import List
 
 class BinOp(Node):
