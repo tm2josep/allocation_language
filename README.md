@@ -3,7 +3,7 @@ Language intented to construct the financial behaviour of (re)insurance contract
 
 ## Installation
 
-> pip install allocation_language
+> $ pip install allocation_language
 
 ## Examples
 
