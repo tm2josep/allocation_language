@@ -1,4 +1,4 @@
-from alloc_lang_runtime.event_dataclasses import EventData
+from alloc_lang_data_containers.event_dataclasses import EventData
 from ast_nodes.alloc_lang_alloc import Node
 from ast_nodes.alloc_lang_primitives import Field, LiveVar, Number
 from typing import List

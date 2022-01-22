@@ -1,6 +1,8 @@
 from rply import ParserGenerator
 import lexer
 import ast_nodes.all_nodes as ast
+import warnings
+warnings.filterwarnings('ignore')
 
 pg = ParserGenerator(lexer.get_lexer_tokens(), cache_id="alloc_lang")
 
