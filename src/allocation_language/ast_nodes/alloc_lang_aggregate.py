@@ -8,21 +8,20 @@ class KeylessAggregateNode(Node):
 
     def evaluate_stream(self, events: Iterable[EventData]) -> Iterable[EventData]:
         events = list(events)
-        temp_events = []
+        remaining_events = []
         for event in events:
             if not isinstance(event, EventData):
                 yield event
+            elif isinstance(event, EventData) and not event.scope_flag:
+                yield event
             else:
-                temp_events.append(event)
+                remaining_events.append(event)
 
-        events = temp_events
         agg_data = {}
         for agg_node in self.agg_field_nodes:
-            agg_data[agg_node.name] = agg_node.evaluate_stream(events)
+            agg_data[agg_node.name] = agg_node.evaluate_stream(remaining_events)
 
         yield EventData(data=agg_data, scope_flag=True, aggregated=True)
-
-        yield from [event for event in events if not event.scope_flag]
 
     def evaluate(self, event: EventData) -> AssessmentEvent:
         if not event.scope_flag:

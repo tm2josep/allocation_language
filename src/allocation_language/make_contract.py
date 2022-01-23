@@ -31,7 +31,7 @@ def __event_stream():
             }
         )
 
-def main():
+def __main():
     contract = make_contract_from_file("./src/allocation_language/test_files/test1.txt")
     contract.update("test", 1e5)
     events: Iterable[EventData | AssessmentEvent] = contract.evaluate_stream(__event_stream())
@@ -40,4 +40,4 @@ def main():
         print(event)
 
 if __name__ == "__main__":
-    main()
+    __main()
