@@ -26,6 +26,5 @@ class SetValue(Node):
         if not event.scope_flag:
             return event
 
-        data = event.data
-        data[self.field_node.name] = self._get_node_value()
-        return EventData(data=data, scope_flag=True, aggregated=event.aggregated)
+        event.data[self.field_node.name] = self._get_node_value()
+        return event

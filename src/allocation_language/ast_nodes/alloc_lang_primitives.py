@@ -70,7 +70,7 @@ class AggField(Field):
             case "sum":
                 return sum(values)
             case "mean":
-                return mean(values)
+                return sum(values)/ len(values)
             case "median":
                 return median(values)
             case "mode":

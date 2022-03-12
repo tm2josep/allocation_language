@@ -36,8 +36,8 @@ def _test_contract():
     contract.update("testvar", 1e5)
     events: Iterable[EventData | AssessmentEvent] = contract.evaluate_stream(make_test_events(50000))
     events = list(events)
-    # for event in events:
-    #     print(event)
+    for event in events:
+        print(event)
         
 def __main():
     import cProfile

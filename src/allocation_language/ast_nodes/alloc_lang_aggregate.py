@@ -12,10 +12,13 @@ class KeylessAggregateNode(Node):
         for event in events:
             if not isinstance(event, EventData):
                 yield event
-            elif isinstance(event, EventData) and not event.scope_flag:
+                continue
+            
+            if not event.scope_flag:
                 yield event
-            else:
-                remaining_events.append(event)
+                continue
+            
+            remaining_events.append(event)
 
         agg_data = {}
         for agg_node in self.agg_field_nodes:
