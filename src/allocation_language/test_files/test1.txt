@@ -1,3 +1,6 @@
-alloc @'claim' 100000 @'liable';
-aggregate key @'type' @'claim':sum @'liable':sum @'revenue':mean;
-set_value @'type' "C";
+set_value @'liable' 0;
+set_value @'retained' 0;
+
+alloc @'claim' 5000 @'retained';
+alloc @'claim' $testvar @'liable';
+aggregate @'claim':sum @'liable':sum @'retained':sum @'revenue':mean;

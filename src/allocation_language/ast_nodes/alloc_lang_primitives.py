@@ -20,10 +20,9 @@ class Node(object):
         pass
 
     def evaluate_stream(self, event_data_stream: Iterable[EventData]) -> Iterable[EventData]:
-        for event in event_data_stream:
-            yield self.evaluate(event) 
+        yield from (self.evaluate(event) for event in event_data_stream)
 
-    def evaluate(self, event_data: EventData) -> dict | float:
+    def evaluate(self, _: EventData) -> dict | float:
         return EventData
 
 
@@ -92,7 +91,9 @@ class LiveVar(Node):
 
     def get_live_nodes(self, found=None):
         if (found is None):
-            found = [self.name]
+            return [self.name]
+        
+        found.append(self.name)
         return found
 
     # Catch any valid updates that are sent down the tree

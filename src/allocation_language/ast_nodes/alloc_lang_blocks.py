@@ -8,8 +8,9 @@ class Statement(Node):
 
     def get_live_nodes(self, found: List[str] | None = None):
         if (found is None):
-            found = []
-        return found + self.expr.get_live_nodes()
+            return self.expr.get_live_nodes()
+        else:
+            return found + self.expr.get_live_nodes()
 
     def update(self, name: str, value: float):
         self.expr.update(name, value)
@@ -38,9 +39,9 @@ class Block(Node):
             statement.update(name, value)
 
     def evaluate_stream(self, event_stream: Iterable[EventData]) -> Iterable[EventData]:
-        events = [event for event in event_stream]
+        events = list(event_stream)
         for statement in self.statements:
-            events = [event for event in statement.evaluate_stream(events)]
+            events = list(statement.evaluate_stream(events))
         yield from events
         
     def evaluate(self, event_data: EventData) -> dict:

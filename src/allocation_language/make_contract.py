@@ -20,8 +20,8 @@ def make_contract_from_file(file_src: PathLike):
 def make_contract_from_text(text_content: str):
     return _make_contract(text_content)
 
-def __event_stream():
-    for _ in range(5000):
+def make_test_events(n=10):
+    for _ in range(n):
         yield EventData(
             data = {
                 "type": random.choice(['A', 'B', 'C']),
@@ -31,13 +31,25 @@ def __event_stream():
             }
         )
 
-def __main():
+def _test_contract():
     contract = make_contract_from_file("./src/allocation_language/test_files/test1.txt")
-    contract.update("test", 1e5)
-    events: Iterable[EventData | AssessmentEvent] = contract.evaluate_stream(__event_stream())
+    contract.update("testvar", 1e5)
+    events: Iterable[EventData | AssessmentEvent] = contract.evaluate_stream(make_test_events(50000))
+    events = list(events)
+    # for event in events:
+    #     print(event)
+        
+def __main():
+    import cProfile
+    import pstats
 
-    for event in events:
-        print(event)
+    with cProfile.Profile() as pr:
+        _test_contract()
+
+    stats = pstats.Stats(pr)
+    stats.sort_stats(pstats.SortKey.TIME)
+    # stats.print_stats()
+    stats.dump_stats('profiling_test_stats.prof')
 
 if __name__ == "__main__":
     __main()

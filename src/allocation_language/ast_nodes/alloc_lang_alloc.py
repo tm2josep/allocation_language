@@ -17,15 +17,11 @@ class Alloc(Node):
     def update(self, name: str, value: float):
         self.value_node.update(name, value)
 
-    def modify_data(self, event_data: EventData, quantity: float):
-        source_val = self.source.evaluate(event_data)
+    def modify_data(self, event_data: EventData, quantity: float, source_val: float):
         target_val = self.target.evaluate(event_data)
 
-        source_val -= quantity
-        target_val += quantity
-
-        event_data.data[self.source.name] = source_val
-        event_data.data[self.target.name] = target_val
+        event_data.data[self.source.name] = source_val - quantity
+        event_data.data[self.target.name] = target_val + quantity
 
         return event_data
 
@@ -35,7 +31,7 @@ class Alloc(Node):
 
         quantity = min(source_val, value)
 
-        return self.modify_data(event_data, quantity)
+        return self.modify_data(event_data, quantity, source_val)
 
     def evaluate_as_share(self, event_data: EventData):
         source_val = self.source.evaluate(event_data)
@@ -43,7 +39,7 @@ class Alloc(Node):
 
         quantity = value * source_val
 
-        return self.modify_data(event_data, quantity)
+        return self.modify_data(event_data, quantity, source_val)
     
     def evaluate(self, event_data: EventData) -> dict:
         if (event_data.scope_flag == False):
