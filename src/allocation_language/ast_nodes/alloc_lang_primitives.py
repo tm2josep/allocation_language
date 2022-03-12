@@ -64,23 +64,23 @@ class AggField(Field):
         super().__init__(string_name)
         
     def evaluate_stream(self, events: Iterable[EventData]) -> float | str:
-        events = [event for event in events if not isinstance(event, AssessmentEvent)]
-        values = [self.evaluate(event) for event in events]
-        match self.agg_mode:
+        events = list(filter(lambda x: not isinstance(x, AssessmentEvent), events))
+        values = list(map(self.evaluate, events))
+        match self.agg_mode: # Ordered by usefulness to increase speed
             case "sum":
                 return sum(values)
             case "mean":
                 return sum(values)/ len(values)
             case "median":
                 return median(values)
-            case "mode":
-                return mode(values)
             case "max":
                 return max(values)
             case "min":
                 return min(values)
             case "count":
                 return len(set(values))
+            case "mode":
+                return mode(values)
             case _:
                 pass
 
