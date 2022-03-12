@@ -34,8 +34,8 @@ def make_test_events(n=10):
 def _test_contract():
     contract = make_contract_from_file("./src/allocation_language/test_files/test1.txt")
     contract.update("testvar", 1e5)
-    events: Iterable[EventData | AssessmentEvent] = contract.evaluate_stream(make_test_events(50000))
-    events = list(events)
+    events = list(make_test_events(50000))
+    events = contract.evaluate_stream(events)
     for event in events:
         print(event)
         

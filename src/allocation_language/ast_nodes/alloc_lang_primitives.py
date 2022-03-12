@@ -1,7 +1,8 @@
 from typing import Iterable, List
 from allocation_language.alloc_lang_data_containers.event_dataclasses import AssessmentEvent, EventData
 import allocation_language.custom_exceptions as custom_exceptions
-from statistics import mean, median, mode
+from statistics import median, mode
+
 class Node(object):
     def __eq__(self, other):
         if not isinstance(other, Node):
