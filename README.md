@@ -30,6 +30,6 @@ for x in results:
     print(x)
 ```
 The above code is an example to feed a generator of loss data into a contract. 
-The "alloc @'claim' $field_1 @'liable';" command translates in english to 'move as much as possible, limited to name_1's value, from the claim field into the liable field'.
+The "alloc @'claim' $name_1 @'liable';" command translates in english to 'move as much as possible, limited to name_1's value, from the claim field into the liable field'.
 This means it applies an occurence equal to name_1.
 The contract.update method allows modification of any named variables in a contract. There can be multiple. 
