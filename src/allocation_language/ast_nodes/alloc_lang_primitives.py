@@ -21,7 +21,7 @@ class Node(object):
         pass
 
     def evaluate_stream(self, event_data_stream: Iterable[EventData]) -> Iterable[EventData]:
-        yield from (self.evaluate(event) for event in event_data_stream)
+        yield from map(self.evaluate, event_data_stream)
 
     def evaluate(self, _: EventData) -> dict | float:
         return EventData

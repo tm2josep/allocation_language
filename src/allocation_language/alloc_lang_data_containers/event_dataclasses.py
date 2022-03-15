@@ -34,3 +34,5 @@ class AssessmentEvent:
             return f"Assessment: {self.final_value!r}"
         if (type(self.final_value) == float):
             return f"Assessment: {self.final_value:,.2f}"
+        
+        return str(self.final_value)

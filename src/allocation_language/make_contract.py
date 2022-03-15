@@ -1,10 +1,8 @@
 from os import PathLike
-from allocation_language.alloc_lang_data_containers.event_dataclasses import AssessmentEvent, EventData
-from typing import Iterable
+from allocation_language.alloc_lang_data_containers.event_dataclasses import EventData
 import allocation_language.lexer as lexer_module
 from allocation_language.parser import parser
 import random
-
 
 def _make_contract(text_content: str):
     lexer = lexer_module.make_new_lexer()
@@ -31,6 +29,8 @@ def make_test_events(n=10):
             }
         )
 
+
+""" Testing code, not part of library. """
 def _test_contract():
     contract = make_contract_from_file("./src/allocation_language/test_files/test1.txt")
     contract.update("testvar", 1e5)
