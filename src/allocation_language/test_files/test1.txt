@@ -3,4 +3,4 @@ set_value @'retained' 0;
 
 alloc @'claim' 5000 @'retained';
 alloc @'claim' $testvar @'liable';
-aggregate @'claim':sum @'liable':sum @'retained':sum @'revenue':mean;
+aggregate key @'type' @'claim':sum @'liable':sum @'retained':sum @'revenue':mean;
