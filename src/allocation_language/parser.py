@@ -131,7 +131,7 @@ def field_as_value(s):
 def field_name(s):
     return Field(s[1].getstr())
 
-@pg.production("agg_field : FIELD_START NAME FIELD_END AGG_MODE")
+@pg.production("agg_field : field AGG_MODE")
 def aggregate_field(s):
     return AggField(s[1].getstr(), s[3].getstr()[1:])
 
@@ -145,7 +145,7 @@ def live_var_name(s):
 def num_value(s):
     return Number(s[0].getstr())
 
-@pg.production("value : NUMBER PERCENT")
+@pg.production("value : value PERCENT")
 def percent_value(s):
     return Percent(s[0].getstr())
 

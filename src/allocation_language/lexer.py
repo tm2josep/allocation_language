@@ -20,7 +20,7 @@ lexer_rules = [
     ("FIELD_END", r"(?<!\\)(?:(\\\\)*)[']"), # Lookbehind makes sure we don't match an escaped '
     ("AGG_MODE", r"\:((sum)|(mean)|(median)|(mode)|(max)|(min)|(count))"),
     ("VAR_START", r"\$"),
-    ("NAME", r"[A-Za-z]+[0-9A-Za-z]+"),
+    ("NAME", r"([^']|\\')*"),
     ("EXP", r"\^"),
     ("MULT", r"\*"),
     ("DIV", r"\/"),
@@ -37,8 +37,8 @@ def get_lexer_tokens() -> List[str]:
 def make_new_lexer() -> Lexer:
     lg = LexerGenerator()
 
-    lg.ignore(r"\s+")
-    lg.ignore(r"\#.*")
+    # lg.ignore(r"\s+")
+    # lg.ignore(r"\#.*")
     for name, regex in lexer_rules:
         lg.add(name, regex)
 

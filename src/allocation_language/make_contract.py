@@ -3,6 +3,7 @@ from allocation_language.alloc_lang_data_containers.event_dataclasses import Eve
 import allocation_language.lexer as lexer_module
 from allocation_language.parser import parser
 import random
+import sys
 
 def _make_contract(text_content: str):
     lexer = lexer_module.make_new_lexer()
@@ -32,7 +33,7 @@ def make_test_events(n=10):
 
 """ Testing code, not part of library. """
 def _test_contract():
-    contract = make_contract_from_file("./src/allocation_language/test_files/test1.txt")
+    contract = make_contract_from_file(f"./src/allocation_language/test_files/{sys.argv[1]}")
     contract.update("testvar", 1e5)
     events = list(make_test_events(50000))
     events = contract.evaluate_stream(events)

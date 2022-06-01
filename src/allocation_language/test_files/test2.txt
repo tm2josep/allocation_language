@@ -1,0 +1,10 @@
+set_value @'retained' 0;
+set_value @'pliable' 0;
+
+alloc @'claim' 2000 @'pliable';
+aggregate @'claim':sum @'retained':sum @'pliable':sum;
+
+set_value @'liable' 0;
+
+alloc @'pliable' 5000000 @'liable';
+assess @'liable':sum;
